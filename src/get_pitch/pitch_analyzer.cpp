@@ -12,7 +12,12 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
+      for(unsigned int n=0; n<x.size()-1-l; ++n){ 
+        
+        r[l] += x[n]*x[n+l];   
+      } 
     }
+    /// \HECHO Calculamos la autocorrelacion mediante un for que recorre x.size()-1-l mustras de x y se calcula mediante r[l] += x[n]*x[n+l]
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
