@@ -17,7 +17,7 @@ namespace upc {
         r[l] += x[n]*x[n+l];   
       } 
     }
-    /// \HECHO Calculamos la autocorrelacion mediante un for que recorre x.size()-1-l mustras de x y se calcula mediante r[l] += x[n]*x[n+l]
+    /// \HECHO Hemos calculado la autocorrelacion mediante un for que recorre x.size()-1-l mustras de x y se calcula mediante r[l] += x[n]*x[n+l]
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
