@@ -103,8 +103,8 @@ namespace upc {
     }
 
     /// \HECHO
-    /// Buscamos la posicion del primer valor negativo de la autorcorrelación.
-    /// Después iteramos a partir de ese valor para encontrar el máximo que nos dara el pitch.
+    /// Buscamos la posición del primer valor negativo de la autorcorrelación.
+    /// Después, iteramos a partir de ese valor para encontrar el máximo que nos da el pitch.
 
     unsigned int lag = iRMax - r.begin();
 
