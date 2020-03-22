@@ -17,7 +17,7 @@ namespace upc {
         r[l] += x[n]*x[n+l];   
       } 
     }
-    /// \HECHO Hemos calculado la autocorrelacion mediante un for que recorre x.size()-1-l mustras de x y se calcula mediante r[l] += x[n]*x[n+l]
+    /// \HECHO Hemos calculado la autocorrelacion mediante un for que recorre x.size()-1-l muestras de x y se calcula mediante r[l] += x[n]*x[n+l]
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
@@ -32,6 +32,10 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+      for(int n = 0; n < frameLen; n++){
+        window[n] = 0.54 - 0.46 * cos (2 * M_PI * n * frameLen);
+      }
+      /// \HECHO Implementamos la ventana de Hamming utilizando los conocimientos de la práctica 1.
       break;
     case RECT:
     default:
