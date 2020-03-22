@@ -61,10 +61,9 @@ namespace upc {
     ///   or compute and use other ones.
     float th1 = 0.85;
     float th2 = 0.6;
-    return r1norm >= th1 && rmaxnorm >= th2;
+    return r1norm <= th1 || rmaxnorm <= th2;
 
     /// \HECHO Utilización de coeficientes de autocorrelación y thresholds de decisión.
-    
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
