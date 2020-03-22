@@ -15,7 +15,7 @@ Ejercicios básicos
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
    
-   ```
+   ```cpp
    for (unsigned int l = 0; l < r.size(); ++l) {
       for(unsigned int n=0; n<x.size()-1-l; ++n){ 
         r[l] += x[n]*x[n+l];   
@@ -38,6 +38,20 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
  
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
+     
+     ```cpp
+     iRMax = r.begin() + npitch_max;
+     iR = r.begin() + npitch_min;
+      
+     while(iR != r.begin() + npitch_max){
+
+     	if(*iR >= *iRMax){
+        
+        	iRMax = iR;
+     	}
+    	++iR;
+     }
+     ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
