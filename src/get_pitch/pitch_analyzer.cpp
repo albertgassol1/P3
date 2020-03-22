@@ -77,8 +77,9 @@ namespace upc {
     vector<float> r(npitch_max);
 
     //Compute correlation
+    cout<<"Before correlation"<<endl;
     autocorrelation(x, r);
-
+    cout<<"After correlation"<<endl;
     vector<float>::const_iterator iR = r.begin(), iRMax = iR;
 
     /// \TODO 
@@ -89,27 +90,42 @@ namespace upc {
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
 
-    while(*iR > 0){
+    while(*iR > 0 && iR != r.end()){
       ++iR;
     }
 
-    if(iR < r.begin() + npitch_min){
+    if(iR == r.end()){
+      
+      cout<<"igual a end"<<endl;
+      iRMax = r.begin() + npitch_max;
+      
+      for(iR = r.begin() + npitch_min; iR != r.end(); ++iR){
 
-      iR += npitch_min;
-    }
-
-    iRMax = iR;
-
-    while(iR != r.end()){
-
-      if(*iR > *iRMax){
-
-        iRMax = iR;
+        if(*iR > *iRMax){
+          iRMax = iR;
+        }
       }
 
-      ++iR;
-    }
+    }else{
 
+      if(iR < r.begin() + npitch_min){
+
+        iR += npitch_min;
+      }
+
+      iRMax = iR;
+
+      while(iR != r.end()){
+
+        if(*iR > *iRMax){
+
+          iRMax = iR;
+        }
+
+        ++iR;
+      }
+    }
+    cout<<"After lag"<<endl;
     /// \HECHO
     /// Buscamos la posición del primer valor negativo de la autorcorrelación.
     /// Después, iteramos a partir de ese valor para encontrar el máximo que nos da el pitch.
