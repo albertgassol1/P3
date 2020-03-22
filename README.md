@@ -30,6 +30,12 @@ Ejercicios básicos
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
 
+<p align="center">
+  <img width="1100" src="img/autocorrelation.png">
+</p>
+
+Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráfica. Este script se encuentra en la carpeta `scripts` de este repositorio.
+ 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
 
