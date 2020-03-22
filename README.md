@@ -55,6 +55,16 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
+  ```cpp
+  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+
+    float th1 = 0.85;
+    float th2 = 0.6;
+    return r1norm <= th1 || rmaxnorm <= th2;
+  }
+  ```
+
+Utilizamos únicamente los coeficientes de la autocorrelación. Establecemos unos thresholds con los que determinamos si el sonido es sordo o sonoro.
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
