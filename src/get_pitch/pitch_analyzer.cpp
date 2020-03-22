@@ -81,6 +81,31 @@ namespace upc {
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
 
+    while(*iR > 0){
+      ++iR;
+    }
+
+    if(iR < r.begin() + npitch_min){
+
+      iR += npitch_min;
+    }
+
+    iRMax = iR;
+
+    while(iR != r.end()){
+
+      if(*iR > *iRMax){
+
+        iRMax = iR;
+      }
+
+      ++iR;
+    }
+
+    /// \HECHO
+    /// Buscamos la posicion del primer valor negativo de la autorcorrelación.
+    /// Después iteramos a partir de ese valor para encontrar el máximo que nos dara el pitch.
+
     unsigned int lag = iRMax - r.begin();
 
     float pot = 10 * log10(r[0]);
