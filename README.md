@@ -17,9 +17,7 @@ Ejercicios básicos
    
    ```
    for (unsigned int l = 0; l < r.size(); ++l) {
-  		/// \TODO Compute the autocorrelation r[l]
       for(unsigned int n=0; n<x.size()-1-l; ++n){ 
-        
         r[l] += x[n]*x[n+l];   
       } 
     }
