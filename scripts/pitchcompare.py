@@ -23,7 +23,7 @@ for line in file.readlines():
 file.close()
 
 fig, axs = plt.subplots(2)
-fig.suptitle('Pitch de calculado y pitch de referencia')
+fig.suptitle('Pitch calculado y pitch de referencia')
 axs[0].plot(valuesf0, 'ro', markersize = 2)
 axs[1].plot(valuesf0ref, 'bo', markersize = 2)
 plt.show()
