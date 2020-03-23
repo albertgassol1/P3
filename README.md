@@ -123,11 +123,15 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
 
   
     os2 <<zeros<<'\n';
-
 ```
-	 - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare 
-	 su resultado con el obtenido por la mejor versión de su propio sistema. 
-	 Inserte una gráfica ilustrativa del resultado de ambos detectores.
+
+  * Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare su r
+    resultado con el obtenido por la mejor versión de su propio sistema.
+    Inserte una gráfica ilustrativa del resultado de ambos detectores.
+    
+<p align="center">
+  <img width="1100" src="img/pitchcompare.png">
+</p>
 
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
