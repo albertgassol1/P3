@@ -59,8 +59,8 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    float th1 = 0.85;
-    float th2 = 0.6;
+    float th1 = 0.8;
+    float th2 = 0.55;
     return r1norm <= th1 || rmaxnorm <= th2;
 
     /// \HECHO Utilización de coeficientes de autocorrelación y thresholds de decisión.
@@ -89,7 +89,7 @@ namespace upc {
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
 
-      
+    /*  
   iRMax = r.begin() + npitch_max;
   iR = r.begin() + npitch_min;
       
@@ -101,6 +101,39 @@ namespace upc {
     }
     ++iR;
   }
+  */
+  while(*iR > 0 && iR != r.end()){
+      ++iR;
+    }
+
+    if(iR == r.end()){
+      
+      iRMax = r.begin() + npitch_max;
+      for(iR = r.begin() + npitch_min; iR != r.end(); ++iR){
+
+        if(*iR > *iRMax){
+          iRMax = iR;
+        }
+      }
+
+    }else{
+
+      if(iR < r.begin() + npitch_min){
+
+        iR += npitch_min;
+      }
+      iRMax = iR;
+
+      while(iR != r.end()){
+
+        if(*iR > *iRMax){
+
+          iRMax = iR;
+        }
+
+        ++iR;
+      }
+    }
 
     /// \HECHO
     /// Buscamos la posición del primer valor negativo de la autorcorrelación.
