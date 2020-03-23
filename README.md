@@ -85,6 +85,41 @@ Utilizamos únicamente los coeficientes de la autocorrelación. Establecemos uno
   <img width="1100" src="img/pitchgraph.png">
 </p>
 
+```cpp
+
+int zeros = compute_zcr(x, x.size(), samplingFreq);
+
+    float pot = 10 * log10(r[0]);
+
+    ofstream os("r1norm.txt", std::ofstream::app);
+    if (!os.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os <<r[1]/r[0]<<'\n';
+
+    ofstream os1("rmaxnorm.txt", std::ofstream::app);
+    if (!os1.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os1 <<r[lag]/r[0]<<'\n';
+    
+    ofstream os2("zeros.txt", std::ofstream::app);
+    if (!os2.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os2 <<zeros<<'\n';
+
+```
+
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
