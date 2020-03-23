@@ -39,7 +39,7 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
      
-     ```cpp
+    ```cpp
     while(*iR > 0 && iR != r.end()){
       ++iR;
     }
@@ -175,7 +175,7 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
 	`pitch_db/train`..
 
 <p align="center">
-  <img width="800" src="img/pitchevaluate1.png">
+  <img width="200" src="img/pitchevaluate1.png">
 </p>
 
 
