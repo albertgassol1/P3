@@ -20,7 +20,7 @@ static const char USAGE[] = R"(
 get_pitch - Pitch Detector 
 
 Usage:
-    get_pitch [options] <input-wav> <output-txt>
+    get_pitch [options] <input-wav> <output-txt> <th1> <th2> <zeros> <power>
     get_pitch (-h | --help)
     get_pitch --version
 
@@ -33,6 +33,10 @@ Arguments:
     output-txt  Output file: ASCII file with the result of the detection:
                     - One line per frame with the estimated f0
                     - If considered unvoiced, f0 must be set to f0 = 0
+    th1         r[1]/r[0] threshold
+    th2         r[lap]/r[0] threshold
+    zeros       Cruces por cero de señal sorda
+    power       Potencia de una señal sonora
 )";
 
 int main(int argc, const char *argv[]) {
@@ -46,7 +50,14 @@ int main(int argc, const char *argv[]) {
 
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
+  float th1 = stof(args["<th1>"].asString());
+  float th2 = stof(args["<th2>"].asString());
+  int zeros = args["<zeros>"].asLong();
+  float power = stof(args["<power>"].asString());
 
+  /// \HECHO
+  /// Añadimos los thresholds de r[1]/r[0] y r[lap]/r[0], los cruces por zero de una señal
+  /// sorda y la potencia de una señal sonora
   // Read input sound file
   unsigned int rate;
   vector<float> x;

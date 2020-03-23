@@ -81,6 +81,10 @@ Utilizamos únicamente los coeficientes de la autocorrelación. Establecemos uno
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
 
+<p align="center">
+  <img width="1100" src="img/pitchgraph.png">
+</p>
+
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.

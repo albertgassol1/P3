@@ -46,6 +46,8 @@ namespace upc {
 	///
     bool unvoiced(float pot, float r1norm, float rmaxnorm) const;
 
+    int compute_zcr(std::vector<float> &x, unsigned int N, float fm) const;
+
 
   public:
     PitchAnalyzer(	unsigned int fLen,			///< Frame length in samples

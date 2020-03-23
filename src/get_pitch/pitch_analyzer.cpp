@@ -1,6 +1,9 @@
 /// @file
 
 #include <iostream>
+#include <fstream>
+#include <errno.h>
+#include <string.h>
 #include <math.h>
 #include "pitch_analyzer.h"
 
@@ -141,7 +144,36 @@ namespace upc {
 
     unsigned int lag = iRMax - r.begin();
 
+    int zeros = compute_zcr(x, x.size(), samplingFreq);
+
     float pot = 10 * log10(r[0]);
+
+    ofstream os("r1norm.txt", std::ofstream::app);
+    if (!os.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os <<r[1]/r[0]<<'\n';
+
+    ofstream os1("rmaxnorm.txt", std::ofstream::app);
+    if (!os1.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os1 <<r[lag]/r[0]<<'\n';
+    
+    ofstream os2("zeros.txt", std::ofstream::app);
+    if (!os2.good()) {
+      cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+      return -3;
+    }
+
+  
+    os2 <<zeros<<'\n';
 
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
@@ -156,4 +188,22 @@ namespace upc {
     else
       return (float) samplingFreq/(float) lag;
   }
+
+  int PitchAnalyzer::compute_zcr(std::vector<float> & x, unsigned int N, float fm) const{
+
+    int i = 0;
+    int ZCR = 0;
+    for(i = 1; i < N; i++){
+        
+        if(x[i - 1] * x[i] < 0){
+
+            ZCR++;
+        }
+    }
+
+    return ZCR * (fm/(2*(N-1)));
 }
+
+}
+
+
