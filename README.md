@@ -85,6 +85,12 @@ Utilizamos únicamente los coeficientes de la autocorrelación. Establecemos uno
   <img width="1100" src="img/pitchgraph.png">
 </p>
 
+En la imagen podemos observar 5 gráficas. La primera es el pitch, la segunda rmaxnorm (r[lag] / r[0]), la tercera r1norm (r[1] / r[0]), la cuarta los cruces por cero y la quinta la grabación de audio.
+
+Podemos distinguir los sonidos sordos de los sonoros ya que, en los sonoros, tanto r1norm como rmaxnorm toman valores alrededor de 1, mientras que en los sordos más cercanos a 0.
+
+Esto pasa debido a que la correlación entre las muestras de un sonido sonoro es muy alta, mientras que de los sordos, como semejan ruidos, no lo es. Esto nos justifica que r1norm sea alta. Que rmaxnorm sea alta es porque los sonidos sonoros son periódicos, lo que nos asegura que los máximos se repetiran eventualmente, por lo tanto rmaxnorm también 
+
 ```cpp
 
 int zeros = compute_zcr(x, x.size(), samplingFreq);
