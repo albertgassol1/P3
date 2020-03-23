@@ -140,7 +140,12 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	 el uso de alternativas de mayor calidad (particularmente Python).
-   
+
+<p align="center">
+  <img width="1100" src="img/pitchgraphs.png">
+</p>
+
+El código utilizado para obtener los gráficos se encuentra en la carpeta `scripts` de este repositorio y se llama `pitchcompare.py`.
 
 Ejercicios de ampliación
 ------------------------
