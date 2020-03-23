@@ -202,7 +202,7 @@ Ejercicios de ampliación
     con los argumentos añadidos.
 
 <p align="center">
-  <img width="600" src="img/docopt.png">
+  <img width="900" src="img/docopt.png">
 </p>
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de detección
