@@ -58,13 +58,11 @@ namespace upc {
       npitch_max = frameLen/2;
   }
 
-  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm, float zeros) const {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    float th1 = 0.8;
-    float th2 = 0.55;
-    return r1norm <= th1 || rmaxnorm <= th2;
+    return r1norm <= th1 || rmaxnorm <= th2 || zeros > zero;
 
     /// \HECHO Utilización de coeficientes de autocorrelación y thresholds de decisión.
   }
@@ -183,7 +181,7 @@ namespace upc {
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
 #endif
     
-    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
+    if (unvoiced(pot, r[1]/r[0], r[lag]/r[0], zeros))
       return 0;
     else
       return (float) samplingFreq/(float) lag;
