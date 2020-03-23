@@ -72,6 +72,7 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
         ++iR;
       }
     }
+    
      ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.

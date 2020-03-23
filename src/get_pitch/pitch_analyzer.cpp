@@ -90,19 +90,6 @@ namespace upc {
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
 
-    /*  
-  iRMax = r.begin() + npitch_max;
-  iR = r.begin() + npitch_min;
-      
-  while(iR != r.begin() + npitch_max){
-
-    if(*iR >= *iRMax){
-        
-        iRMax = iR;
-    }
-    ++iR;
-  }
-  */
   while(*iR > 0 && iR != r.end()){
       ++iR;
     }
@@ -200,7 +187,7 @@ namespace upc {
     }
 
     return ZCR * (fm/(2*(N-1)));
-}
+  }
 
 }
 
