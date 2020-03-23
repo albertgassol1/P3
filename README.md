@@ -145,7 +145,7 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
   <img width="1100" src="img/pitchgraphs.png">
 </p>
 
-El código utilizado para obtener los gráficos se encuentra en la carpeta `scripts` de este repositorio y se llama `pitchcompare.py`.
+El código utilizado para obtener los gráficos se encuentra en la carpeta `scripts` de este repositorio y se llama `pitchcompare.py`. En la primera gràfica, vemos el pitch calculado por nuestro programa. En la segunda, se puede ver el pitch calculado por `wavesurfer`.
 
 Ejercicios de ampliación
 ------------------------
