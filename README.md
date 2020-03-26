@@ -1,6 +1,10 @@
 PAV - P3: detección de pitch
 ============================
 
+## Albert Gassol - Andrea Iturralde
+
+<img src="img/unnamed.jpg" width = "200" align="center">
+
 Esta práctica se distribuye a través del repositorio GitHub [Práctica 3](https://github.com/albino-pav/P3).
 Siga las instrucciones de la [Práctica 2](https://github.com/albino-pav/P2) para realizar un `fork` de la
 misma y distribuir copias locales (*clones*) del mismo a los distintos integrantes del grupo de prácticas.
@@ -217,6 +221,109 @@ Ejercicios de ampliación
   * Optimización **demostrable** de los parámetros que gobiernan el detector, en concreto, de los que
     gobiernan la decisión sonoro/sordo.
   * Cualquier otra técnica que se le pueda ocurrir o encuentre en la literatura.
+  
+  De todas las posibles mejoras, hemos decidido implementar tres de ellas: el preprocesado, el postprocesado y la optimización de parámetros del detector.
+  
+  En primer lugar, hemos aplicado el método *center clipping* para el preprocesado. Hemos detectado los valores máximos de la primera y última trama de la señal, y los hemos utilizado para establecer un umbral. Este umbral es el mínimo de los máximos y se aplica de la siguiente manera a las muestras de la señal:
+  	* Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
+	* Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
+	* En caso contrario, el valor de la muestra pasa a ser 0.
+	
+El códgo implementado es el siguiente:
+  
+  ```cpp
+  
+    vector<float>::iterator iX;
+
+  if(centerClip == 1){
+    float clip, max1, max2;
+    max1 = max2 = 0;
+
+    for (iX = x.begin(); iX < x.begin() + n_len; ++iX) {
+      if(fabs(*iX) > max1){
+        max1 = fabs(*iX);
+      }
+    }
+
+    for (iX = x.end() - n_len; iX < x.end(); ++iX) {
+      if(fabs(*iX) > max2){
+        max2 = fabs(*iX);
+      }
+    }
+
+    clip = coef * min(max1,max2);
+
+    for (iX = x.begin(); iX < x.end(); ++iX) {
+      if (*iX >= clip){
+        *iX = *iX - clip;
+      }
+      else if (*iX <= -clip){
+        *iX = *iX + clip;
+      }
+      else{
+        *iX = 0;
+      }
+    }
+  }
+  
+  ```
+  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de XXXXX
+  
+  FOTO D LA SCORE :D
+  
+  En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello, hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los valores de menor a mayor y que escoge el valor central como nuevo valor de la muestra. 
+  
+  Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial.  
+  
+El códgo implementado es el siguiente:
+  
+  ```cpp
+  
+  if(filtroMediana == 1){
+    
+    vector<float> medianWindow(MFcoefs);
+    int ini = (MFcoefs - 1)/2;
+
+    for (int i = ini; i < f0.size() - ini; ++i) {
+
+      for (int j = 0; j < MFcoefs; ++j) {
+
+        medianWindow[j] = f0[i - ini + j];
+      }
+      for (int j = 0; j < ini + 1; ++j) {
+
+        int min = j;
+        for (int k = j + 1; k < MFcoefs; ++k) {
+          
+            if (medianWindow[k] < medianWindow[min]) {
+              min = k;
+            }
+        }
+        float aux = medianWindow[j];
+        medianWindow[j] = medianWindow[min];
+        medianWindow[min] = aux;
+      }
+      f0[i] = medianWindow[ini];
+    }
+  }   
+  ```
+ 
+ Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de XXXX
+ 
+ FOTO D LA SCORE :D
+ 
+ Finalmente, para optimizar los parámetros del detector, hemos generado un script que itera de cuatro maneras diferentes los siguientes valores: los thresholds de la correlación, el ZCR, el coeficiente del clipping y el número de coeficientes del filtro de mediana.
+ 
+ En la primera iteramos los parámetros de la práctica sin la ampliación, en la segunda añadimos únicamente el clipping, en la tercera añadimos únicamente el filtro de mediana y en la cuarta añadimos ambos métodos de procesado.
+ 
+ FOTO D LAS 4 MEJORES FSCORE
+ 
+ Podemos confirmar de nuevo, que el programa detecta mejor el pitch con los métodos de pre y postprocesado, y que los valores óptimos de los parámetros son:
+ 	* th1  = 
+	* th2 = 
+	* ZCR = 
+	* coefClipping = 
+	* nCoefMedian = 
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
