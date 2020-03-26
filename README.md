@@ -217,6 +217,53 @@ Ejercicios de ampliación
   * Optimización **demostrable** de los parámetros que gobiernan el detector, en concreto, de los que
     gobiernan la decisión sonoro/sordo.
   * Cualquier otra técnica que se le pueda ocurrir o encuentre en la literatura.
+  
+  De todas las posibles mejoras, hemos decidido implementar tres de ellas: el preprocesado, el postprocesado y la optimización de parámetros del detector.
+  
+  En primer lugar, hemos aplicado el método *center clipping* para el preprocesado. Hemos detectado los valores máximos de la primera y última trama de la señal, y los hemos utilizado para establecer un umbral. Este umbral es el mínimo de los máximos y se aplica de la siguiente manera a las muestras de la señal:
+  	* Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
+	* Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
+	* En caso contrario, el valor de la muestra pasa a ser 0.
+  
+  ```cpp
+  
+    vector<float>::iterator iX;
+
+  if(centerClip == 1){
+    float clip, max1, max2;
+    max1 = max2 = 0;
+
+    for (iX = x.begin(); iX < x.begin() + n_len; ++iX) {
+      if(fabs(*iX) > max1){
+        max1 = fabs(*iX);
+      }
+    }
+
+    for (iX = x.end() - n_len; iX < x.end(); ++iX) {
+      if(fabs(*iX) > max2){
+        max2 = fabs(*iX);
+      }
+    }
+
+    clip = coef * min(max1,max2);
+
+    for (iX = x.begin(); iX < x.end(); ++iX) {
+      if (*iX >= clip){
+        *iX = *iX - clip;
+      }
+      else if (*iX <= -clip){
+        *iX = *iX + clip;
+      }
+      else{
+        *iX = 0;
+      }
+    }
+  }
+  
+  ```
+  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora 
+  
+  Hemos implementado un código que permite al usuario añadir el tamaño de la ventana con la 
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
