@@ -131,28 +131,33 @@ int main(int argc, const char *argv[]) {
   /// or time-warping may be used.
 
   if(filtroMediana == 1){
+    
     vector<float> medianWindow(MFcoefs);
     int ini = (MFcoefs - 1)/2;
-    void _medianfilter(const element* signal, element* result, int N) {
-      for (int i = ini; i < f0.size() - ini; ++i) {
-        for (int j = 0; j < MFcoefs; ++j) {
-          medianWindow[j] = f0[i - ini + j];
-        }
-        for (int j = 0; j < ini + 1; ++j) {
-          int min = j;
-          for (int k = j + 1; k < MFcoefs; ++k) {
-              if (medianWindow[k] < medianWindow[min]) {
-                min = k;
-              }
-          }
-          float aux = medianWindow[j];
-          medianWindow[j] = medianWindow[min];
-          medianWindow[min] = aux;
-        }
-        f0[i] = medianWindow[ini];
+
+    for (int i = ini; i < f0.size() - ini; ++i) {
+
+      for (int j = 0; j < MFcoefs; ++j) {
+
+        medianWindow[j] = f0[i - ini + j];
       }
-    }  
-}
+      for (int j = 0; j < ini + 1; ++j) {
+
+        int min = j;
+        for (int k = j + 1; k < MFcoefs; ++k) {
+          
+            if (medianWindow[k] < medianWindow[min]) {
+              min = k;
+            }
+        }
+        float aux = medianWindow[j];
+        medianWindow[j] = medianWindow[min];
+        medianWindow[min] = aux;
+      }
+      f0[i] = medianWindow[ini];
+    }
+  }  
+
   /// \HECHO 
   /// Útilización de filtro de mediana de MFcoefs ceficientes para eliminar errores gruesos en la
   /// detección de pitch
