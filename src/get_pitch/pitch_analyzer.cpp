@@ -15,7 +15,7 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
-      for(unsigned int n=0; n<x.size()-1-l; ++n){ 
+      for(unsigned int n=0; n<=x.size()-1-l; ++n){ 
         
         r[l] += x[n]*x[n+l];   
       } 
@@ -36,7 +36,7 @@ namespace upc {
     case HAMMING:
       /// \TODO Implement the Hamming window
       for(int n = 0; n < frameLen; n++){
-        window[n] = 0.54 - 0.46 * cos (2 * M_PI * n * frameLen);
+        window[n] = 0.54 - 0.46 * cos (2 * M_PI * n / (frameLen-1));
       }
       /// \HECHO Implementamos la ventana de Hamming utilizando los conocimientos de la práctica 1.
       break;
@@ -62,7 +62,7 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return (r1norm <= th1 || rmaxnorm <= th2) || zeros > zero;
+    return (r1norm <= th1 && rmaxnorm <= th2) || zeros > zero;
 
     /// \HECHO Utilización de coeficientes de autocorrelación y thresholds de decisión.
   }
@@ -190,5 +190,3 @@ namespace upc {
   }
 
 }
-
-
