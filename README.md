@@ -1,6 +1,12 @@
 PAV - P3: detección de pitch
 ============================
 
+## Albert Gassol - Andrea Iturralde
+
+<p align="center">
+  <img width="1100" src="img/unnamed.png">
+</p>
+
 Esta práctica se distribuye a través del repositorio GitHub [Práctica 3](https://github.com/albino-pav/P3).
 Siga las instrucciones de la [Práctica 2](https://github.com/albino-pav/P2) para realizar un `fork` de la
 misma y distribuir copias locales (*clones*) del mismo a los distintos integrantes del grupo de prácticas.
