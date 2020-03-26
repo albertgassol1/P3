@@ -267,7 +267,9 @@ El códgo implementado es el siguiente:
   
   FOTO D LA SCORE :D
   
-  En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los 
+  En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello, hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los valores de menor a mayor y que escoge el valor central como nuevo valor de la muestra. 
+  
+  Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial.  
   
 El códgo implementado es el siguiente:
   
@@ -299,11 +301,25 @@ El códgo implementado es el siguiente:
       }
       f0[i] = medianWindow[ini];
     }
-  }  
-
-  
+  }   
   ```
  
+ Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de XXXX
+ 
+ FOTO D LA SCORE :D
+ 
+ Finalmente, para optimizar los parámetros del detector, hemos generado un script que itera de cuatro maneras diferentes los siguientes valores: los thresholds de la correlación, el ZCR, el coeficiente del clipping y el número de coeficientes del filtro de mediana.
+ 
+ En la primera iteramos los parámetros de la práctica sin la ampliación, en la segunda añadimos únicamente el clipping, en la tercera añadimos únicamente el filtro de mediana y en la cuarta añadimos ambos métodos de procesado.
+ 
+ FOTO D LAS 4 MEJORES FSCORE
+ 
+ Podemos confirmar de nuevo, que el programa detecta mejor el pitch con los métodos de pre y postprocesado, y que los valores óptimos de los parámetros son:
+ 	* th1  = 
+	* th2 = 
+	* ZCR = 
+	* coefClipping = 
+	* nCoefMedian = 
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
