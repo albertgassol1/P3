@@ -43,10 +43,10 @@ Ejercicios básicos
 Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráfica. Este script se encuentra en la carpeta `scripts` de este repositorio.
  
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la autocorrelación. Inserte a continuación el código correspondiente.
-     
-    ```cpp
-    
-    while(*iR > 0 && iR != r.end()){
+   
+   ```cpp
+   
+     while(*iR > 0 && iR != r.end()){
       ++iR;
     }
 
@@ -78,8 +78,8 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
         ++iR;
       }
     }
-    
-     ```
+   
+   ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
@@ -280,7 +280,7 @@ El códgo implementado es el siguiente:
   
   Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial.  
   
-El códgo implementado es el siguiente:https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf. 
+El códgo implementado es el siguiente: https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf. 
   
   ```cpp
   
