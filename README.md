@@ -224,6 +224,8 @@ Ejercicios de ampliación
   	* Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
 	* Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
 	* En caso contrario, el valor de la muestra pasa a ser 0.
+	
+El códgo implementado es el siguiente:
   
   ```cpp
   
@@ -261,9 +263,47 @@ Ejercicios de ampliación
   }
   
   ```
-  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora 
+  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de XXXXX
   
-  Hemos implementado un código que permite al usuario añadir el tamaño de la ventana con la 
+  FOTO D LA SCORE :D
+  
+  En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los 
+  
+El códgo implementado es el siguiente:
+  
+  ```cpp
+  
+  if(filtroMediana == 1){
+    
+    vector<float> medianWindow(MFcoefs);
+    int ini = (MFcoefs - 1)/2;
+
+    for (int i = ini; i < f0.size() - ini; ++i) {
+
+      for (int j = 0; j < MFcoefs; ++j) {
+
+        medianWindow[j] = f0[i - ini + j];
+      }
+      for (int j = 0; j < ini + 1; ++j) {
+
+        int min = j;
+        for (int k = j + 1; k < MFcoefs; ++k) {
+          
+            if (medianWindow[k] < medianWindow[min]) {
+              min = k;
+            }
+        }
+        float aux = medianWindow[j];
+        medianWindow[j] = medianWindow[min];
+        medianWindow[min] = aux;
+      }
+      f0[i] = medianWindow[ini];
+    }
+  }  
+
+  
+  ```
+ 
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
