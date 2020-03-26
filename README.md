@@ -45,6 +45,7 @@ Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráf
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la autocorrelación. Inserte a continuación el código correspondiente.
      
     ```cpp
+    
     while(*iR > 0 && iR != r.end()){
       ++iR;
     }
