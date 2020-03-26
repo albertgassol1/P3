@@ -20,11 +20,13 @@ Ejercicios básicos
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
    
    ```cpp
+   
    for (unsigned int l = 0; l < r.size(); ++l) {
       for(unsigned int n=0; n<x.size()-1-l; ++n){ 
         r[l] += x[n]*x[n+l];   
       } 
     }
+    
     ```
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un sonido sonoro
