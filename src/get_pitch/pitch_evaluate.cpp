@@ -6,6 +6,8 @@
 #include <vector>
 #include <math.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 #include "docopt.h"
 
@@ -211,5 +213,16 @@ void print_results(int nframes, int num_voiced, int num_unvoiced,
   score = Fss * (1 - fine_error);
 
   cout << fixed << setprecision(2);
+
+  if(filename == "TOTAL"){
+    ofstream os("results.txt", std::ofstream::app);
+      if (!os.good()) {
+        cerr << "Error reading output file " << "datos.txt" << " (" << strerror(errno) << ")\n";
+        return;
+      }
+    
+    os << "===>\t" << filename << ":\t" << 100 * score << " %\n\n";
+  }
+
   cout << "\n===>\t" << filename << ":\t" << 100 * score << " %\n";
 }

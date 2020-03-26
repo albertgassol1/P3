@@ -104,9 +104,11 @@ int main(int argc, const char *argv[]) {
     for (iX = x.begin(); iX < x.end(); ++iX) {
       if (*iX >= clip){
         *iX = *iX - clip;
+        //*iX = 1;
       }
       else if (*iX <= -clip){
         *iX = *iX + clip;
+        //*iX = -1;
       }
       else{
         *iX = 0;
@@ -117,7 +119,8 @@ int main(int argc, const char *argv[]) {
   /// \HECHO
   /// CENTER CLIPPING : Nos fijamos en las muestras de la primera y última trama y encontramos
   /// el valor máximo en valor absoluto de la amplitud de ambas secuencias. El threshold del center clipping
-  /// es el mínimo de estos dos máximos multiplicado por coef.
+  /// es el mínimo de estos dos máximos multiplicado por coef. Se puede optar por aplicar el center clipping infinito: este
+  /// se aplica poniendo las muestras a 1, en lugar de *iX - clip, y a -1, en lugar de *iX + clip
 
   // Iterate for each frame and save values in f0 vector
   vector<float> f0;
@@ -145,7 +148,7 @@ int main(int argc, const char *argv[]) {
 
         int min = j;
         for (int k = j + 1; k < MFcoefs; ++k) {
-          
+
             if (medianWindow[k] < medianWindow[min]) {
               min = k;
             }
