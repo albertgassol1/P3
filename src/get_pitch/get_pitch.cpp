@@ -73,9 +73,39 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
-  
-  // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
+  float clip, max1, max2;
+  max1 = 0;
+  max2 = 0;
+
+  for (iX = x.begin(); iX < x.begin() + n_len; ++iX) {
+    if(fabs(*iX) > max1){
+      max1 = fabs(*iX);
+    }
+  }
+
+  for (iX = x.end() - n_len; iX < x.end(); ++iX) {
+    if(fabs(*iX) > max2){
+      max1 = fabs(*iX);
+    }
+  }
+
+  clip = min(max1,max2);
+
+  for (iX = x.begin(); iX < x.end(); ++iX) {
+    if (*iX >= clip){
+      *iX = *iX - clip;
+    }
+    else if (*iX <= -clip){
+      *iX = *iX + clip;
+    }
+    else{
+      *iX = 0;
+    }
+  }
+
+
+  // Iterate for each frame and save values in f0 vector
   vector<float> f0;
   for (iX = x.begin(); iX + n_len < x.end(); iX = iX + n_shift) {
     float f = analyzer(iX, iX + n_len);
