@@ -36,32 +36,68 @@ Ejercicios básicos
 
 Se ha utilizado el script de Python `autocorrelation.py` para obtener esta gráfica. Este script se encuentra en la carpeta `scripts` de este repositorio.
  
-   * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
-     autocorrelación. Inserte a continuación el código correspondiente.
+   * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la autocorrelación. Inserte a continuación el código correspondiente.
      
-     ```cpp
-     iRMax = r.begin() + npitch_max;
-     iR = r.begin() + npitch_min;
-      
-     while(iR != r.begin() + npitch_max){
+    ```cpp
+    while(*iR > 0 && iR != r.end()){
+      ++iR;
+    }
 
-     	if(*iR >= *iRMax){
-        
-        	iRMax = iR;
-     	}
-    	++iR;
-     }
+    if(iR == r.end()){
+      
+      iRMax = r.begin() + npitch_max;
+      for(iR = r.begin() + npitch_min; iR != r.end(); ++iR){
+
+        if(*iR > *iRMax){
+          iRMax = iR;
+        }
+      }
+
+    }else{
+
+      if(iR < r.begin() + npitch_min){
+
+        iR += npitch_min;
+      }
+      iRMax = iR;
+
+      while(iR != r.end()){
+
+        if(*iR > *iRMax){
+
+          iRMax = iR;
+        }
+
+        ++iR;
+      }
+    }
+    
      ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
   ```cpp
-  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
+bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm, float zeros) const {
 
-    float th1 = 0.85;
-    float th2 = 0.6;
-    return r1norm <= th1 || rmaxnorm <= th2;
+    return (r1norm <= th1 || rmaxnorm <= th2) || zeros > zero;
+
   }
+
+int PitchAnalyzer::compute_zcr(std::vector<float> & x, unsigned int N, float fm) const{
+
+    int i = 0;
+    int ZCR = 0;
+    for(i = 1; i < N; i++){
+        
+        if(x[i - 1] * x[i] < 0){
+
+            ZCR++;
+        }
+    }
+
+    return ZCR * (fm/(2*(N-1)));
+  }
+
   ```
 
 Utilizamos únicamente los coeficientes de la autocorrelación. Establecemos unos thresholds con los que determinamos si el sonido es sordo o sonoro.
@@ -137,6 +173,11 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 
+<p align="center">
+  <img width="200" src="img/pitchevaluate1.png">
+</p>
+
+
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	 el uso de alternativas de mayor calidad (particularmente Python).
@@ -159,6 +200,10 @@ Ejercicios de ampliación
 
   * Inserte un *pantallazo* en el que se vea el mensaje de ayuda del programa y un ejemplo de utilización
     con los argumentos añadidos.
+
+<p align="center">
+  <img width="900" src="img/docopt.png">
+</p>
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de detección
   de pitch.
