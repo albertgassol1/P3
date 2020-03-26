@@ -232,6 +232,8 @@ En primer lugar, hemos aplicado el método *center clipping* para el preprocesad
 	* Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
 	* En caso contrario, el valor de la muestra pasa a ser 0.
 	
+En principio buscamos un algoritmo en internet pero acabamos optando por seguir tus recomendaciones. El código que habíamos encontrado está en este paper: 
+	
 El códgo implementado es el siguiente:
   
   ```cpp
@@ -278,7 +280,7 @@ El códgo implementado es el siguiente:
   
   Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial.  
   
-El códgo implementado es el siguiente:
+El códgo implementado es el siguiente:https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf. 
   
   ```cpp
   
