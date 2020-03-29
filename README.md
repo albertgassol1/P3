@@ -132,7 +132,7 @@ En la imagen podemos observar 5 gráficas. La primera es rmaxnorm (r[lag] / r[0]
 
 Podemos distinguir los sonidos sordos de los sonoros ya que, en los sonoros, tanto r1norm como rmaxnorm toman valores alrededor de 1, mientras que en los sordos toman valores más cercanos a 0.
 
-Esto es debido a que la correlación entre las muestras de un sonido sonoro es muy alta, mientras que la de los sordos, como semejan ruido, no lo es. También se debe a que los sonidos sonoros son periódicos, lo que nos asegura que los máximos se repetiran eventualmente, lo cual aproxima a 1 la relación entre el segundo y primer máximo, que son de valores similares.
+Esto es debido a que la correlación entre las muestras de un sonido sonoro es muy alta, mientras que la de los sordos, como semejan ruido, no lo es. También se debe a que los sonidos sonoros son periódicos, lo que nos asegura que los máximos se repetirán eventualmente, lo cual aproxima a 1 la relación entre el segundo y primer máximo, que son de valores similares.
 
 ```cpp
 
@@ -279,7 +279,7 @@ El códgo implementado es el siguiente:
   }
   
   ```
-  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de 89.35%
+  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es de 89.35%
   
 <p align="center">
   <img width="200" src="img/scoreCenter.png">
@@ -322,7 +322,7 @@ El códgo implementado es el siguiente:
   } 
   ```
  
- Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de 89.72%
+Con el postprocesado detectamos una mejora en la *score*, que ahora es de 89.72%
  
  <p align="center">
   <img width="200" src="img/scoreTOTAL.png">
