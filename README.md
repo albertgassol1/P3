@@ -282,7 +282,7 @@ El códgo implementado es el siguiente:
   Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de 89.35%
   
 <p align="center">
-  <img width="900" src="img/scoreCenter.png">
+  <img width="200" src="img/scoreCenter.png">
 </p>
   
   En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello, hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los valores de menor a mayor y que escoge el valor central como nuevo valor de la muestra. 
@@ -325,7 +325,7 @@ El códgo implementado es el siguiente:
  Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de 89.72%
  
  <p align="center">
-  <img width="900" src="img/scoreTOTAL.png">
+  <img width="200" src="img/scoreTOTAL.png">
 </p>
  
  Finalmente, para optimizar los parámetros del detector, hemos generado un script de bash que itera de cuatro maneras diferentes los siguientes valores: los thresholds de la correlación, el ZCR, el coeficiente del clipping y el número de coeficientes del filtro de mediana.
