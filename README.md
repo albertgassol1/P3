@@ -335,10 +335,10 @@ Con el postprocesado detectamos una mejora en la *score*, que ahora es de 89.72%
  
  Podemos confirmar de nuevo, que el programa detecta mejor el pitch con los métodos de pre y postprocesado, y que los valores óptimos de los parámetros son:
 - **th1  = 0.82**
-- * **th2 = 0.36**
-- * **ZCR = 2100**
-- * **coefClipping = 1** 
-- * **nCoefMedian = 3**
+- **th2 = 0.36**
+- **ZCR = 2100**
+- **coefClipping = 1** 
+- **nCoefMedian = 3**
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
