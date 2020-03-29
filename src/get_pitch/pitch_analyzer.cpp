@@ -62,7 +62,7 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return (r1norm <= th1 && rmaxnorm <= th2) || zeros > zero;
+    return (r1norm <= th1 || rmaxnorm <= th2) || zeros > zero;
 
     /// \HECHO Utilización de coeficientes de autocorrelación y thresholds de decisión.
   }

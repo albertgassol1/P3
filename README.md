@@ -176,12 +176,19 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
   <img width="1100" src="img/pitchcompare.png">
 </p>
 
+Los pitch calculados por wavesurfer y por nuestro programa son bastante parecidos. En algunos sitios, nuestro programa da resultados diferentes. Creemos que este comportamiento es debido a que nuestro programa detecta ciertos frames de silecio y sonidos sordos como sonidos sonoros.
+
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
 
+Unvoiced frames as voiced  |Voiced frames as unvoiced  |Gross voiced errors (+20.00 %):  |MSE of fine errors:
+---------------------------| :-----------------------: |---------------------------------| :---------------------:
+368/6723 (5.47 %)          |438/3943 (11.11 %)         |43/3505 (1.23 %)                 |2.41 %
+
+
 <p align="center">
-  <img width="200" src="img/pitchevaluate1.png">
+  <img width="400" src="img/pitchevaluate1.png">
 </p>
 
 
@@ -193,7 +200,7 @@ int zeros = compute_zcr(x, x.size(), samplingFreq);
   <img width="1100" src="img/pitchgraphs.png">
 </p>
 
-El código utilizado para obtener los gráficos se encuentra en la carpeta `scripts` de este repositorio y se llama `pitchcompare.py`. En la primera gráfica, vemos el pitch calculado por nuestro programa. En la segunda, se puede ver el pitch calculado por `wavesurfer`.
+El código utilizado para obtener las gráficas se encuentra en la carpeta `scripts` de este repositorio y se llama `pitchcompare.py`. En la primera gráfica, vemos el pitch calculado por nuestro programa. En la segunda, se puede ver el pitch calculado por `wavesurfer`.
 
 Ejercicios de ampliación
 ------------------------
@@ -228,11 +235,11 @@ Ejercicios de ampliación
 De todas las posibles mejoras, hemos decidido implementar tres de ellas: el preprocesado, el postprocesado y la optimización de parámetros del detector.
   
 En primer lugar, hemos aplicado el método *center clipping* para el preprocesado. Hemos detectado los valores máximos de la primera y última trama de la señal, y los hemos utilizado para establecer un umbral. Este umbral es el mínimo de los máximos y se aplica de la siguiente manera a las muestras de la señal:
-  	* Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
-	* Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
-	* En caso contrario, el valor de la muestra pasa a ser 0.
+  	+ Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
+	+ Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
+	+ En caso contrario, el valor de la muestra pasa a ser 0.
 	
-En principio buscamos un algoritmo en internet pero acabamos optando por seguir tus recomendaciones. El código que habíamos encontrado está en este paper: 
+En principio buscamos un algoritmo en internet para implementar el *center clipping*, pero acabamos optando por seguir tus recomendaciones. El código que habíamos encontrado está en este paper: https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf
 	
 El códgo implementado es el siguiente:
   
@@ -272,15 +279,17 @@ El códgo implementado es el siguiente:
   }
   
   ```
-  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de XXXXX
+  Aplicamos este preprocesado para intentar periodificar al máximo posible la señal. Podemos ver que el resultado es mejor ya que ahora la *score* es de 89.35%
   
-  FOTO D LA SCORE :D
+<p align="center">
+  <img width="900" src="img/scoreCenter.png">
+</p>
   
   En segundo lugar, hemos aplicado el filtro de mediana para el postprocesado. Para ello, hemos implementado un código que permite al usuario introducir por pantalla el tamaño de la ventana con la que haremos el filtrado, que reordena los valores de menor a mayor y que escoge el valor central como nuevo valor de la muestra. 
   
-  Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial.  
+  Lo hemos implementado de manera que la ventana sea un vector y no empiece centrada en la muestra 0 de la señal, sinó en la posición central de la ventana. De esta manera, los primeros y últimos *(MFcoefs - 1)/2* se mantienen a su valor inicial. 
   
-El códgo implementado es el siguiente: https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf. 
+El códgo implementado es el siguiente: 
   
   ```cpp
   
@@ -310,25 +319,26 @@ El códgo implementado es el siguiente: https://pdfs.semanticscholar.org/7e00/c1
       }
       f0[i] = medianWindow[ini];
     }
-  }   
+  } 
   ```
  
- Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de XXXX
+ Tal y como pasó al aplicar el preprocesado, con el postprocesado también detectamos una mejora en la *score*, que ahora es de 89.72%
  
- FOTO D LA SCORE :D
+ <p align="center">
+  <img width="900" src="img/scoreTOTAL.png">
+</p>
  
- Finalmente, para optimizar los parámetros del detector, hemos generado un script que itera de cuatro maneras diferentes los siguientes valores: los thresholds de la correlación, el ZCR, el coeficiente del clipping y el número de coeficientes del filtro de mediana.
+ Finalmente, para optimizar los parámetros del detector, hemos generado un script de bash que itera de cuatro maneras diferentes los siguientes valores: los thresholds de la correlación, el ZCR, el coeficiente del clipping y el número de coeficientes del filtro de mediana.
  
- En la primera iteramos los parámetros de la práctica sin la ampliación, en la segunda añadimos únicamente el clipping, en la tercera añadimos únicamente el filtro de mediana y en la cuarta añadimos ambos métodos de procesado.
- 
- FOTO D LAS 4 MEJORES FSCORE
+ En la primera iteramos los parámetros de la práctica sin la ampliación, en la segunda añadimos únicamente el clipping, en la tercera añadimos únicamente el filtro de mediana y en la cuarta añadimos ambos métodos de procesado. El mejor resultado encontrado es el siguiente:
+
  
  Podemos confirmar de nuevo, que el programa detecta mejor el pitch con los métodos de pre y postprocesado, y que los valores óptimos de los parámetros son:
- 	* th1  = 
-	* th2 = 
-	* ZCR = 
-	* coefClipping = 
-	* nCoefMedian = 
+ 	* **th1  = 0.82**
+	* **th2 = 0.36**
+	* **ZCR = 2100**
+	* **coefClipping = 1** 
+	* **nCoefMedian = 3**
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).

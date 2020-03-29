@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-file = open("../../pav_2341.f0", 'r')
+file = open("../pav_2341.f0", 'r')
 
 valuesf0 = []
 interval = 0.015
@@ -12,7 +12,7 @@ for line in file.readlines():
     time+=interval
 file.close()
 
-file = open("../../pav_2341.f0ref", 'r')
+file = open("../pav_2341.f0ref", 'r')
 
 valuesf0ref = []
 time = 0.015
