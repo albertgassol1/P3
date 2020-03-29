@@ -235,9 +235,9 @@ Ejercicios de ampliación
 De todas las posibles mejoras, hemos decidido implementar tres de ellas: el preprocesado, el postprocesado y la optimización de parámetros del detector.
   
 En primer lugar, hemos aplicado el método *center clipping* para el preprocesado. Hemos detectado los valores máximos de la primera y última trama de la señal, y los hemos utilizado para establecer un umbral. Este umbral es el mínimo de los máximos y se aplica de la siguiente manera a las muestras de la señal:
-  	+ Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
-	+ Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
-	+ En caso contrario, el valor de la muestra pasa a ser 0.
++ Si el valor de la señal es mayor que el umbral, se le resta dicho umbral a la muestra.
++ Si el valor de la señal es menor que el umbral cambiado de signo, se le suma dicho umbral a la muestra.
++ En caso contrario, el valor de la muestra pasa a ser 0.
 	
 En principio buscamos un algoritmo en internet para implementar el *center clipping*, pero acabamos optando por seguir tus recomendaciones. El código que habíamos encontrado está en este paper: https://pdfs.semanticscholar.org/7e00/c103c0197a05f9d20511ef03fd8bb0ba81a5.pdf
 	
@@ -334,11 +334,11 @@ Con el postprocesado detectamos una mejora en la *score*, que ahora es de 89.72%
 
  
  Podemos confirmar de nuevo, que el programa detecta mejor el pitch con los métodos de pre y postprocesado, y que los valores óptimos de los parámetros son:
- 	* **th1  = 0.82**
-	* **th2 = 0.36**
-	* **ZCR = 2100**
-	* **coefClipping = 1** 
-	* **nCoefMedian = 3**
+- **th1  = 0.82**
+- * **th2 = 0.36**
+- * **ZCR = 2100**
+- * **coefClipping = 1** 
+- * **nCoefMedian = 3**
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
